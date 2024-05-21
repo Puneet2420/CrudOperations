@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatApp</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <h2>All user chats</h2>
+    <form method="GET" action="/chats/new">
+        <button class="btn">Create New  <i class="fas fa-plus-circle"></i></button>
+    </form>
+    <% for(let chat of chats){ %>
+        <div class="chat">
+            <div class="user">
+                <div>
+                    <img class="img" src="/dp.jpg" alt="Profile">
+                </div>
+                <div>
+                    <p class="from"><%=chat.from%></p>
+                </div>
+            </div>
+            <div class="msg">
+                <p>Message: <%=chat.msg%></p>
+            </div>
+            <div class="edit_delete">
+                <form method="GET" action="/chats/<%=chat._id%>/edit">
+                    <button class="icon-button">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                </form>
+                <form method="POST" action="/chats/<%=chat._id%>?_method=DELETE">
+                    <button class="icon-button">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </button>
+                </form>
+            </div>   
+            <p class="received">Received by:<%=chat.to%>
+            </p>
+            <hr>
+            <p class="time"><%=chat.created_at.toTimeString().slice(0, 8)%></p>
+        </div>
+        <%} %>
+</body>
+
+</html>
